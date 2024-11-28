@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Video Redirect</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #333;
+        }
+        .container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+        h1 {
+            color: #FF0000;
+            font-size: 24px;
+        }
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            margin-top: 10px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background-color: #FF0000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #cc0000;
+        }
+        .count-section {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+        .count-section span {
+            font-weight: bold;
+            font-size: 20px;
+            color: #FF0000;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="mainPage">
+    <h1>YouTube Viewer</h1>
+    <p>Enter the YouTube URL below:</p>
+    <input type="text" id="youtubeUrl" placeholder="Paste YouTube URL here" />
+    <br>
+    <button onclick="redirectToVideo()">Open Video</button>
+
+   
+    <div class="count-section">
+        <p>Click Count: <span id="countDisplay">0</span></p>
+    </div>
+</div>
+
+<script>
+    let count = 0;  
+    let autoClickCount = 0;  
+    let youtubeUrl = "";  
+    let autoClickInterval;  
+
+    
+    function redirectToVideo() {
+        const url = document.getElementById('youtubeUrl').value;
+        
+        
+        const youtubeRegex = /^(https?\:\/\/)?(www\.youtube\.com|youtu\.be)\/.+$/;
+        
+        if (youtubeRegex.test(url)) {
+            youtubeUrl = url;  
+            count++;
+            
+            
+            document.getElementById('countDisplay').textContent = count;
+
+            
+            const newTab = window.open(url, '_blank');
+            
+            
+            setTimeout(() => {
+                if (newTab && !newTab.closed) {
+                    newTab.close();
+                }
+            }, 10000); 
+        } else {
+            alert('Please enter a valid YouTube URL');
+        }
+    }
+
+    
+    function startAutoClicking() {
+        
+        if (!youtubeUrl) {
+            alert("Please enter a valid YouTube URL first.");
+            return;
+        }
+
+        
+        autoClickInterval = setInterval(() => {
+            if (autoClickCount < 10) {
+                redirectToVideo();  
+                autoClickCount++;    
+            } else {
+                clearInterval(autoClickInterval);  
+            }
+        }, 600000);  
+    }
+
+    
+    function initiateAutoClick() {
+        
+        if (document.getElementById('youtubeUrl').value) {
+        
+            setTimeout(startAutoClicking, 10000);
+        }
+    }
+
+    
+    document.getElementById('youtubeUrl').addEventListener('input', initiateAutoClick);
+
+</script>
+
+</body>
+</html>
