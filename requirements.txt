@@ -1,4 +1,5 @@
 streamlit
 flask
+flask streamlit
 requests
 gunicorn
