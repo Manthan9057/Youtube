@@ -22,20 +22,21 @@ HTML_TEMPLATE = """
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #000000;  /* Black background */
+            color: white;  /* White text */
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            color: #333;
+            flex-direction: column;
         }
         .container {
-            background-color: white;
+            background-color: #222222;  /* Dark background for the form */
             padding: 30px;
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
             text-align: center;
             max-width: 400px;
             width: 100%;
@@ -68,16 +69,23 @@ HTML_TEMPLATE = """
         .count-section {
             margin-top: 20px;
             font-size: 18px;
-            color: #333;
+            color: #ddd;
         }
         .count-section span {
             font-weight: bold;
             font-size: 20px;
             color: #FF0000;
         }
+        .logo {
+            max-width: 150px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
+
+<!-- Logo added to the top -->
+<img src="logo.png" alt="Logo" class="logo">
 
 <div class="container" id="mainPage">
     <h1>YouTube Viewer</h1>
@@ -123,6 +131,7 @@ HTML_TEMPLATE = """
 </body>
 </html>
 """
+
 
 # Global variables for counting and locks
 click_count = 0
